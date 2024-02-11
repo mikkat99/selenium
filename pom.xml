@@ -32,5 +32,10 @@
 
   </dependencies>
 
+  <dependency>
+    <groupId>com.squareup.okio</groupId>
+    <artifactId>okio</artifactId>
+    <version>1.15.0</version>
+  </dependency>
 
 </project>
