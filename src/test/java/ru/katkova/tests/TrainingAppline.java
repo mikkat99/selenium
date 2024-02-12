@@ -179,5 +179,4 @@ public class TrainingAppline {
         Assert.assertTrue("Поле было заполнено некорректно", checkFlag);
 
     }
-
 }
