@@ -3,94 +3,120 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>org.example</groupId>
-  <artifactId>FirstSeleniumscript</artifactId>
+  <artifactId>FirstSeleniumScript</artifactId>
   <version>1.0-SNAPSHOT</version>
   <packaging>jar</packaging>
 
-  <name>FirstSeleniumscript</name>
+  <name>FirstSeleniumScript</name>
   <url>http://maven.apache.org</url>
 
   <properties>
-    <!-- Encoding -->
+    <!--   Encoding     -->
     <encoding.type>UTF-8</encoding.type>
     <project.build.sourceEncoding>${encoding.type}</project.build.sourceEncoding>
     <project.reporting.outputEncoding>${encoding.type}</project.reporting.outputEncoding>
     <file.encoding>${encoding.type}</file.encoding>
 
-    <!-- Java version -->
-    <java.version>8</java.version>
-    <maven.compiler.source>${java.version}</maven.compiler.source>
-    <maven.compiler.target>${java.version}</maven.compiler.target>
+    <!--   Java version     -->
+    <maven.compiler.source>17</maven.compiler.source>
+    <maven.compiler.target>17</maven.compiler.target>
 
-
-    <!-- Dependencies Version -->
-    <junit.version>5.8.0</junit.version>
+    <!--    Dependencies version    -->
+    <maven-compiler-plugin>3.6.1</maven-compiler-plugin>
+    <maven-surefire-plugin>3.0.0-M5</maven-surefire-plugin>
+    <aspectj.version>1.9.19</aspectj.version>
+    <junit-jupiter-engine>5.10.0</junit-jupiter-engine>
+    <allure-junit5>2.16.1</allure-junit5>
+    <allure-maven>2.10.0</allure-maven>
+    <slf4j-simple>1.7.30</slf4j-simple>
   </properties>
 
   <dependencies>
     <dependency>
       <groupId>org.seleniumhq.selenium</groupId>
       <artifactId>selenium-java</artifactId>
-      <version>4.1.2</version>
+      <version>4.10.0</version>
     </dependency>
-
     <dependency>
-      <groupId>com.squareup.okio</groupId>
-      <artifactId>okio</artifactId>
-      <version>3.8.0</version>
+      <groupId>org.aspectj</groupId>
+      <artifactId>aspectjweaver</artifactId>
+      <version>${aspectj.version}</version>
     </dependency>
 
+    <!-- https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java -->
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-simple</artifactId>
+      <version>${slf4j-simple}</version>
+    </dependency>
+
+    <!-- https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter -->
     <dependency>
       <groupId>org.junit.jupiter</groupId>
-      <artifactId>junit-jupiter-api</artifactId>
-      <version>${junit.version}</version>
-      <scope>test</scope>
+      <artifactId>junit-jupiter</artifactId>
+      <version>5.10.0</version>
     </dependency>
-
+    <dependency>
+      <groupId>io.qameta.allure</groupId>
+      <artifactId>allure-junit5</artifactId>
+      <version>${allure-junit5}</version>
+    </dependency>
   </dependencies>
+
   <build>
     <plugins>
-
       <!-- Плагин, который отвечает за компиляцию как тестов так и в целом всех Java-классов -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
-        <version>3.8.1</version>
+        <version>${maven-compiler-plugin}</version>
         <configuration>
-          <source>${java.version}</source>
-          <target>${java.version}</target>
-          <encoding>${encoding.type}</encoding>
+          <source>${maven.compiler.source}</source>
+          <target>${maven.compiler.target}</target>
         </configuration>
       </plugin>
-
-      <!-- Плагин, который отвечает за запуск тестов и сбор информации о состоянии тестов которые были запущены -->
+      <!-- Плагин отвечает за запуск тестов и сбор информации о состоянии тестов которые были запущенны -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-plugin</artifactId>
-        <version>3.0.0-M5</version>
+        <version>${maven-surefire-plugin}</version>
         <configuration>
           <testFailureIgnore>true</testFailureIgnore>
-          <includes>**/*Test.java</includes>
-          <argLine>
-            -Xmx1024m
-            -Dfile.encoding=${encoding.type}
-          </argLine>
-        </configuration>
-      </plugin>
 
-      <!-- Плагин, который отвечает за формирование сайта Allure отчета -->
+          <argLine>
+            <!-- Сколько оперативной памяти выделяем для запуска тестов -->
+            -Xmx1024m
+            <!-- Кодировка всех файлов -->
+            -Dfile.encoding=${encoding.type}
+            -javaagent:${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar
+          </argLine>
+          <systemPropertyVariables>
+            <!--  путь для хранения отчет результатов -->
+            <allure.results.directory>${project.build.directory}/allure-results
+            </allure.results.directory>
+          </systemPropertyVariables>
+        </configuration>
+        <dependencies>
+          <!-- Плагин, который отвечает за формирование сайта Allure отчета -->
+          <dependency>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjweaver</artifactId>
+            <version>${aspectj.version}</version>
+          </dependency>
+        </dependencies>
+      </plugin>
       <plugin>
         <groupId>io.qameta.allure</groupId>
         <artifactId>allure-maven</artifactId>
-        <version>2.10.0</version>
+        <version>${allure-maven}</version>
         <configuration>
           <reportVersion>2.10.0</reportVersion>
-          <resultsDirectory>${project.build.directory}/reports/allure-results</resultsDirectory>
-          <reportDirectory>${project.build.directory}/reports/allure-reports</reportDirectory>
+          <resultsDirectory>${project.build.directory}/allure-results</resultsDirectory>
+          <reportDirectory>${project.build.directory}/allure-reports</reportDirectory>
         </configuration>
         <executions>
           <execution>
-            <id>allure-plugin</id>
+            <id>allure-report</id>
             <phase>install</phase>
             <goals>
               <goal>report</goal>
@@ -98,12 +124,6 @@
           </execution>
         </executions>
       </plugin>
-
     </plugins>
   </build>
-
 </project>
-
-
-
-

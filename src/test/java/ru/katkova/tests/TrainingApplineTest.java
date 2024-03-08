@@ -14,6 +14,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import java.util.concurrent.TimeUnit;
+import java.time.Duration;
 
 
 public class TrainingApplineTest {
@@ -27,7 +28,9 @@ public class TrainingApplineTest {
         driver.manage().window().maximize();
         driver.manage().timeouts().pageLoadTimeout(15, TimeUnit.SECONDS);
         driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
-        wait = new WebDriverWait(driver, 30);
+        Duration waitTime = Duration.ofSeconds(30); // Создаем объект Duration с временем ожидания 30 секунд
+
+        wait = new WebDriverWait(driver, waitTime); // Передаем объект Duration в конструктор WebDriverWait
 
         driver.get("http://training.appline.ru/user/login");
     }

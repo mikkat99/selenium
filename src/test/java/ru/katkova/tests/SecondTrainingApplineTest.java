@@ -4,11 +4,8 @@ import extension.DriverExtention;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import steps.LoginSteps;
-
 import java.util.Properties;
-
 import static project.properties.TestProperties.getINSTANCE;;
-
 
 @ExtendWith(DriverExtention.class)
 class SecondTrainingApplineTest {
