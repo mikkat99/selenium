@@ -7,7 +7,6 @@ import project.properties.BasePage;
 
 
 public class LoginPage extends BasePage {
-
     @FindBy(xpath = "//fieldset//input[contains(@id, 'prependedInput') and contains(@type, 'text')]")
     private WebElement loginRow;
     @FindBy(xpath = "//button[contains(@type, 'submit')]")

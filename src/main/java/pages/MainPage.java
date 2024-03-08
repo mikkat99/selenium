@@ -7,6 +7,7 @@ import project.properties.BasePage;
 
 import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOf;
 
+
 public class MainPage extends BasePage {
     @FindBy(xpath = "//span[contains(@class, 'title') and contains(text(), 'Расходы')]")
     private WebElement costsBtn;

@@ -16,7 +16,6 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.util.concurrent.TimeUnit;
 import java.time.Duration;
 
-
 public class TrainingApplineTest {
     WebDriver driver;
     WebDriverWait wait;

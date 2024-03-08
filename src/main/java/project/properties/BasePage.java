@@ -10,6 +10,7 @@ import static org.openqa.selenium.support.PageFactory.*;
 import static org.openqa.selenium.support.ui.ExpectedConditions.invisibilityOf;
 import static project.properties.DriverManager.getWebDriver;
 
+
 public class BasePage {
     @FindBy(xpath = "//div[@class='loader-mask shown']")
     private WebElement loadindIcon;

@@ -6,9 +6,6 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import java.time.Duration;
 import java.util.Properties;
 
-import static java.lang.System.setProperty;
-
-
 public class DriverManager {
     private static WebDriver driver;
     private static Properties properties = TestProperties.getINSTANCE().getProperties();
@@ -26,8 +23,6 @@ public class DriverManager {
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
         driver.manage().window().maximize();
     }
-
-
 
     public static void closeDriver(){
         driver.quit();
