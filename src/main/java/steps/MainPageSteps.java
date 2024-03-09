@@ -8,5 +8,6 @@ public class MainPageSteps {
         MainPage mainPage = new MainPage();
         mainPage.costsClick();
         mainPage.assignmentClick();
+        mainPage.assignmentCreate();
     }
 }
